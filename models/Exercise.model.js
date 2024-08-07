@@ -1,16 +1,18 @@
-const { Schema } = require("mongoose");
+// models/Exercise.js
+const mongoose = require("mongoose");
 
-const exerciseSchema = new Schema({
-  name: { type: String, required: true },
-  description: { type: String },
-  dailyWorkoutId: {
-    type: Schema.Types.ObjectId,
-    ref: "DailyWorkout",
-    required: true,
-  },
-  createdAt: { type: Date, default: Date.now },
-  updatedAt: { type: Date, default: Date.now },
+const exerciseSchema = new mongoose.Schema({
+  category: String,
+  equipment: String,
+  force: String,
+  id: { type: String, unique: true },
+  images: [String],
+  instructions: [String],
+  level: String,
+  mechanic: String,
+  name: String,
+  primaryMuscles: [String],
+  secondaryMuscles: [String],
 });
 
-const Exercise = model("Exercise", exerciseSchema);
-module.exports = Exercise;
+module.exports = mongoose.model("Exercise", exerciseSchema);

@@ -8,8 +8,11 @@ const app = express();
 
 require("./config")(app);
 
-const UserRoutes = require("./routes/index.routes");
+const UserRoutes = require("./routes/User.routes");
 app.use("/user", UserRoutes);
+
+const exercisesRoutes = require("./routes/exercises.routes");
+app.use("/exercises", exercisesRoutes);
 
 const authRoutes = require("./routes/auth.routes");
 app.use("/auth", authRoutes);
