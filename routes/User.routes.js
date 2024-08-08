@@ -4,7 +4,13 @@ const User = require("../models/User.model");
 const bcrypt = require("bcrypt");
 
 // POST /user/create - Creates a new user in the database
-router.post("/signin", (req, res, next) => {
+
+router.get("/", (req, res) => {
+  User.find()
+    .populate("workouts")
+    .then((resp) => res.json(resp));
+});
+router.post("/register", (req, res, next) => {
   const { email, password, name, age, weight, height } = req.body;
 
   // Check if email or password or name are provided as empty strings

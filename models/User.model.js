@@ -8,6 +8,7 @@ const userSchema = new Schema({
   weight: { type: Number },
   height: { type: Number },
   createdAt: { type: Date, default: Date.now },
+  workouts: [{ type: Schema.Types.ObjectId, ref: "Workout" }],
 });
 
 const User = model("User", userSchema);

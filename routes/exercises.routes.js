@@ -4,6 +4,7 @@ const axios = require("axios");
 
 router.get("/", async (req, res, next) => {
   try {
+    req.find();
     const response = await axios.get(
       process.env.EXERCISE_DB_API_URL + "/exercises",
       {
@@ -16,6 +17,27 @@ router.get("/", async (req, res, next) => {
     res.json(response.data);
   } catch (error) {
     console.log("err", error);
+  }
+});
+
+router.post("/", async (req, res) => {
+  const exerciseData = req.body;
+
+  try {
+    // Verificar si el ejercicio ya existe
+    // const existingExercise = await Exercise.findOne({ id: exerciseData.id });
+    // if (existingExercise) {
+    //   return res.status(400).json({ error: "Exercise already exists" });
+    // }
+
+    // Crear un nuevo ejercicio con los datos proporcionados
+    const newExercise = new Exercise(exerciseData);
+    const savedExercise = await newExercise.save();
+    res.status(201).json(savedExercise);
+  } catch (error) {
+    console.log(error);
+    console.error("Error adding exercise:", error);
+    res.status(500).json({ error: error.message });
   }
 });
 
@@ -86,8 +108,6 @@ router.get("/bodypart/:BodypartId", async (req, res, next) => {
     console.log("err", error);
   }
 });
-//do the same but with name
-// name example = band fixed back underhand pulldown  band%20fixed%20back%20underhand%20pulldown
 router.get("/name/:name", async (req, res, next) => {
   const { name } = req.params;
   const encodedName = encodeURIComponent(name); // Codifica el nombre

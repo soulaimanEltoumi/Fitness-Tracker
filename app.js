@@ -12,7 +12,13 @@ const UserRoutes = require("./routes/User.routes");
 app.use("/user", UserRoutes);
 
 const exercisesRoutes = require("./routes/exercises.routes");
-app.use("/exercises", exercisesRoutes);
+app.use("/exercise", exercisesRoutes);
+
+const userExercisesRoutes = require("./routes/userExercises.routes");
+app.use("/userExercises", userExercisesRoutes);
+
+const workoutRoutes = require("./routes/workout.routes");
+app.use("/workout", workoutRoutes);
 
 const authRoutes = require("./routes/auth.routes");
 app.use("/auth", authRoutes);
