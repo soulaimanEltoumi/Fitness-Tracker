@@ -8,6 +8,8 @@ const app = express();
 
 require("./config")(app);
 
+const { isAuthenticated } = require("./middleware/jwt.middleware");
+
 const UserRoutes = require("./routes/User.routes");
 app.use("/user", UserRoutes);
 
@@ -19,6 +21,9 @@ app.use("/userExercises", userExercisesRoutes);
 
 const workoutRoutes = require("./routes/workout.routes");
 app.use("/workout", workoutRoutes);
+
+const createWorkoutRoute = require("./routes/createWorkouts.routes");
+app.use("/createWorkout", isAuthenticated, createWorkoutRoute);
 
 const authRoutes = require("./routes/auth.routes");
 app.use("/auth", authRoutes);

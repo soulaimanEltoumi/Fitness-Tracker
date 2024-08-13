@@ -4,9 +4,30 @@ const axios = require("axios");
 
 router.get("/", async (req, res, next) => {
   try {
-    req.find();
     const response = await axios.get(
       process.env.EXERCISE_DB_API_URL + "/exercises",
+      {
+        headers: {
+          "x-rapidapi-key": process.env.EXERCISE_DB_API_KEY,
+          "x-rapidapi-host": process.env.EXERCISE_DB_API_HOST,
+        },
+        params: {
+          limit: 12,
+        },
+      }
+    );
+    res.json(response.data);
+  } catch (error) {
+    console.log("err", error);
+  }
+});
+
+router.get("/exercise/:id", async (req, res, next) => {
+  const { id } = req.params;
+
+  try {
+    const response = await axios.get(
+      process.env.EXERCISE_DB_API_URL + "/exercises/exercise/" + id,
       {
         headers: {
           "x-rapidapi-key": process.env.EXERCISE_DB_API_KEY,
@@ -24,13 +45,6 @@ router.post("/", async (req, res) => {
   const exerciseData = req.body;
 
   try {
-    // Verificar si el ejercicio ya existe
-    // const existingExercise = await Exercise.findOne({ id: exerciseData.id });
-    // if (existingExercise) {
-    //   return res.status(400).json({ error: "Exercise already exists" });
-    // }
-
-    // Crear un nuevo ejercicio con los datos proporcionados
     const newExercise = new Exercise(exerciseData);
     const savedExercise = await newExercise.save();
     res.status(201).json(savedExercise);
@@ -115,6 +129,41 @@ router.get("/name/:name", async (req, res, next) => {
   try {
     const response = await axios.get(
       process.env.EXERCISE_DB_API_URL + "/exercises/name/" + encodedName,
+      {
+        headers: {
+          "x-rapidapi-key": process.env.EXERCISE_DB_API_KEY,
+          "x-rapidapi-host": process.env.EXERCISE_DB_API_HOST,
+        },
+      }
+    );
+    res.json(response.data);
+  } catch (error) {
+    console.log("err", error);
+  }
+});
+//get equipmentlist
+router.get("/equipment", async (req, res, next) => {
+  try {
+    const response = await axios.get(
+      process.env.EXERCISE_DB_API_URL + "/exercises/equipmentList",
+      {
+        headers: {
+          "x-rapidapi-key": process.env.EXERCISE_DB_API_KEY,
+          "x-rapidapi-host": process.env.EXERCISE_DB_API_HOST,
+        },
+      }
+    );
+    res.json(response.data);
+  } catch (error) {
+    console.log("err", error);
+  }
+});
+
+router.get("/equipment/:equipmentId", async (req, res, next) => {
+  const { equipmentId } = req.params;
+  try {
+    const response = await axios.get(
+      process.env.EXERCISE_DB_API_URL + "/exercises/equipment/" + equipmentId,
       {
         headers: {
           "x-rapidapi-key": process.env.EXERCISE_DB_API_KEY,

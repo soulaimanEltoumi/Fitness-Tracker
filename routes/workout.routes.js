@@ -63,7 +63,7 @@ router.get("/", async (req, res) => {
 });
 
 // Get all workouts for a user
-router.get("/:userId", async (req, res) => {
+router.get("/user/:userId", async (req, res) => {
   const { userId } = req.params;
   try {
     const workouts = await Workout.find({ userId }).populate("exercises");
@@ -73,5 +73,24 @@ router.get("/:userId", async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+router.get("/:workoutId", async (req, res) => {
+  const { workoutId } = req.params;
 
+  try {
+    const workout = await Workout.findById({ _id: workoutId });
+    console.log("idddddd", workoutId, workout);
+    if (!workout) {
+      res.status(404).json({ message: "Workout not found" });
+    } else {
+      console.log(req.params.id);
+      console.log(workout);
+      res.json(workout);
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Error finding workout" });
+  }
+});
+
+//export
 module.exports = router;

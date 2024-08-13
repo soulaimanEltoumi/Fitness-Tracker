@@ -8,8 +8,6 @@ Aquí tienes el README de la tabla con las rutas para tu código de autenticaci�
 | POST   | /auth/login  | -       | { "email": "string", "password": "string" }                                                                            | -      | -     | 200    | -       | { "authToken": "string" }                                 | Login with an existing account |
 | GET    | /auth/verify | token   | -                                                                                                                      | -      | -     | 200    | -       | { "email": "string", "name": "string", "\_id": "string" } | Verify the JWT token           |
 
-Aquí tienes el README de la tabla con las rutas para el segundo conjunto de código proporcionado:
-
 ## Exercise
 
 | method | endpoint                        | headers | body  | params     | query | status | Headers | body  | description                     |
@@ -54,8 +52,6 @@ Aquí tienes el README de la tabla con las rutas para el segundo conjunto de có
 | GET    | /workouts/:userId | -       | -     | userId | -     | 200    | -       | {...} | Retrieve all workouts for a user |
 
 ---
-
-Here’s the translation to English:
 
 1. **/exercises**
 
