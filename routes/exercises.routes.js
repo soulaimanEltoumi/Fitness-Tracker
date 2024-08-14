@@ -128,7 +128,7 @@ router.get("/name/:name", async (req, res, next) => {
 
   try {
     const response = await axios.get(
-      process.env.EXERCISE_DB_API_URL + "/exercises/name/" + encodedName,
+      `${process.env.EXERCISE_DB_API_URL}/exercises/name/${encodedName}?offset=0&limit=12`,
       {
         headers: {
           "x-rapidapi-key": process.env.EXERCISE_DB_API_KEY,
@@ -136,9 +136,11 @@ router.get("/name/:name", async (req, res, next) => {
         },
       }
     );
-    res.json(response.data);
+    // Asegúrate de devolver un arreglo de ejercicios.
+    res.json(response.data); // Aquí, response.data debería ser un arreglo de ejercicios.
   } catch (error) {
-    console.log("err", error);
+    console.log("Error fetching exercise:", error);
+    res.status(500).json({ error: "Failed to fetch exercise data." });
   }
 });
 //get equipmentlist

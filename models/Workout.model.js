@@ -18,6 +18,7 @@ const workoutSchema = new Schema(
     ],
     duration: { type: Number, default: 0 },
     notes: { type: String },
+    isPublic: { type: Boolean, default: false }, // Campo para visibilidad
   },
   {
     timestamps: true,

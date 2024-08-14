@@ -1,10 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const UserExercise = require("../models/UserExercises.model");
-const { isAuthenticated } = require("../middleware/jwt.middleware");
+// const { isAuthenticated } = require("../middleware/jwt.middleware");
 
 // POST /userexercises/add - Adds a new exercise for a user
-router.post("/", isAuthenticated, async (req, res) => {
+router.post("/", async (req, res) => {
   try {
     const { userId, name } = req.body;
     if (!userId || !name) {

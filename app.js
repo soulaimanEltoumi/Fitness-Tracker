@@ -23,7 +23,7 @@ const workoutRoutes = require("./routes/workout.routes");
 app.use("/workout", workoutRoutes);
 
 const createWorkoutRoute = require("./routes/createWorkouts.routes");
-app.use("/createWorkout", isAuthenticated, createWorkoutRoute);
+app.use("/createWorkout", createWorkoutRoute);
 
 const authRoutes = require("./routes/auth.routes");
 app.use("/auth", authRoutes);
