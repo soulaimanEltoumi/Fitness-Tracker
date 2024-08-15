@@ -10,11 +10,6 @@ const UserExercisesSchema = new Schema(
     target: { type: String },
     secondaryMuscles: [String],
     instructions: [String],
-    isPublic: {
-      type: Boolean,
-      default: true,
-      required: true,
-    },
   },
   {
     timestamps: true,

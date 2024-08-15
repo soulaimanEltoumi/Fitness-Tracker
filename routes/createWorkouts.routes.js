@@ -2,13 +2,20 @@ const router = require("express").Router();
 const axios = require("axios");
 const Workout = require("../models/Workout.model");
 
-router.post("/workout", async (req, res) => {
+router.post("/", async (req, res) => {
   try {
     const { userId, title, date, exercises, duration, notes, isPublic } =
       req.body;
 
     // Validar los campos requeridos
-    if (!userId || !title || !date || !exercises || exercises.length === 0) {
+    if (
+      !userId ||
+      !title ||
+      !date ||
+      !exercises ||
+      !isPublic ||
+      exercises.length === 0
+    ) {
       return res.status(400).json({ error: "Missing required fields" });
     }
 
@@ -37,10 +44,11 @@ router.post("/workout", async (req, res) => {
             response.data && response.data.length > 0 ? response.data[0] : null;
 
           if (exerciseData) {
-            // Devuelve el ejercicio con toda la información necesaria
+            console.log(exerciseData);
             return {
               bodyPart: exerciseData.bodyPart || "Unknown",
               equipment: exerciseData.equipment || "Unknown",
+              gifUrl: exerciseData.gifUrl,
               id: exerciseData.id || exercise.name, // Utiliza el nombre si el id no está disponible
               name: exerciseData.name,
               target: exerciseData.target || "Unknown",
@@ -68,12 +76,12 @@ router.post("/workout", async (req, res) => {
       exercises: processedExercises,
       duration,
       notes,
-      isPublic: isPublic || false, // Asigna false por defecto si no se proporciona
+      isPublic: isPublic || false,
+      // Asigna false por defecto si no se proporciona
     });
 
     // Guarda el entrenamiento en la base de datos
     await newWorkout.save();
-    console.log("New workout saved successfully:", newWorkout);
     res.status(201).json(newWorkout);
   } catch (error) {
     console.error("Error creating workout:", error.message);
