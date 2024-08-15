@@ -13,7 +13,7 @@ router.post("/", async (req, res) => {
       !title ||
       !date ||
       !exercises ||
-      !isPublic ||
+      typeof isPublic !== "boolean" ||
       exercises.length === 0
     ) {
       return res.status(400).json({ error: "Missing required fields" });
